@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: demo
+
+  data:
+    mongodb:
+      uri: mongodb+srv://${DATABASE_USER}:${DATABASE_PASSWORD}@cluster0.ly4vv.mongodb.net/${DATABASE_NAME}?retryWrites=true&w=majority
