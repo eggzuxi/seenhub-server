@@ -22,9 +22,9 @@ public class Movie extends Base {
     private boolean isMasterPiece;
 
     @Builder(toBuilder = true)
-    public Movie(String title, String author, Genre genre, String thumbnail, boolean isMasterPiece) {
+    public Movie(String title, String director, Genre genre, String thumbnail, boolean isMasterPiece) {
         this.title = title;
-        this.director = author;
+        this.director = director;
         this.genre = genre;
         this.thumbnail = thumbnail;
         this.isMasterPiece = isMasterPiece;

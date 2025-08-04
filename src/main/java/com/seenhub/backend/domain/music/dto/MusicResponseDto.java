@@ -40,6 +40,8 @@ public class MusicResponseDto {
     @Getter
     @NoArgsConstructor
     public static class ReleaseDto {
+        @JsonProperty("id")
+        private String releaseId; // 썸네일용 MBID
         @JsonProperty("release-group")
         private ReleaseGroupDto releaseGroup;
     }
