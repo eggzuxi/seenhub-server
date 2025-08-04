@@ -8,10 +8,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    @Value("webclient.music")
+    @Value("${webclient.music}")
     private String musicBaseUrl;
 
-    @Value("webclient.thumbnail")
+    @Value("${webclient.thumbnail}")
     private String thumbnailBaseUrl;
 
     @Bean
