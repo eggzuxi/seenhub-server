@@ -35,6 +35,9 @@ dependencies {
     //	env
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 
+    //	webclient
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 }
 
 tasks.named('test') {

@@ -5,3 +5,7 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://${DATABASE_USER}:${DATABASE_PASSWORD}@cluster0.ly4vv.mongodb.net/${DATABASE_NAME}?retryWrites=true&w=majority
+
+webclient:
+  music: ${MUSICBRAINZ_API_URL}
+  thumbnail: ${COVER_ART_ARCHIVE_API_URL}
