@@ -2,14 +2,17 @@ package com.seenhub.backend.domain.music.entity;
 
 import com.seenhub.backend.domain.common.entity.Base;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "musics")
 @Getter
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Music extends Base {
 
@@ -17,19 +20,9 @@ public class Music extends Base {
     private String id;
     private String title;
     private String artist;
-    private Genre genre;
+    private List<Genre> genres;
     private String thumbnail;
     private String commentId;
     private boolean isMasterPiece;
-
-    @Builder(toBuilder = true)
-    public Music(String title, String artist, Genre genre, String thumbnail, String commentId ,boolean isMasterPiece) {
-        this.title = title;
-        this.artist = artist;
-        this.genre = genre;
-        this.thumbnail = thumbnail;
-        this.commentId = commentId;
-        this.isMasterPiece = isMasterPiece;
-    }
 
 }
