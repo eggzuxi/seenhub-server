@@ -1,12 +1,16 @@
 package com.seenhub.backend.domain.music.service.impl;
 
+import com.seenhub.backend.domain.common.dto.PageResponseDto;
 import com.seenhub.backend.domain.music.dto.MusicCreateRequestDto;
+import com.seenhub.backend.domain.music.dto.MusicListDto;
 import com.seenhub.backend.domain.music.dto.MusicSearchDto;
 import com.seenhub.backend.domain.music.entity.Music;
 import com.seenhub.backend.domain.music.repository.MusicRepository;
 import com.seenhub.backend.domain.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,6 +24,7 @@ public class MusicServiceImpl implements MusicService {
 
     private final MusicRepository musicRepository;
     private final MusicApiServiceImpl musicApiService;
+    private final ReactiveMongoTemplate mongoTemplate;
 
     @Override
     public Mono<List<MusicSearchDto>> searchMusic(String title) {
@@ -57,6 +62,44 @@ public class MusicServiceImpl implements MusicService {
                 .build();
 
         return musicRepository.save(music).then();
+
+    }
+
+    @Override
+    public Mono<PageResponseDto<MusicListDto>> getMusicList(int page, int size) {
+
+        Mono<Long> totalCount = musicRepository.count();
+
+        Query query = new Query()
+                .skip((long)(page - 1) * size)
+                .limit(size);
+
+        Mono<List<MusicListDto>> musicList = mongoTemplate.find(query, Music.class)
+                .map(music -> MusicListDto.builder()
+                        .id(music.getId())
+                        .title(music.getTitle())
+                        .artist(music.getArtist())
+                        .genre(music.getGenre())
+                        .thumbnail(music.getThumbnail())
+                        .commentId(music.getCommentId())
+                        .isMasterPiece(music.isMasterPiece())
+                        .build())
+                .collectList();
+
+        return Mono.zip(musicList, totalCount)
+                .map(tuple -> {
+                    List<MusicListDto> content = tuple.getT1();
+                    Long totalCnt = tuple.getT2();
+                    boolean isLast = (long) (page + 1) * size >= totalCnt;
+
+                    return PageResponseDto.<MusicListDto>builder()
+                            .content(content)
+                            .pageNumber(page)
+                            .pageSize(size)
+                            .last(isLast)
+                            .build();
+
+                });
 
     }
 

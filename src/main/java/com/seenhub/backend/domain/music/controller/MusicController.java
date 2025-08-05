@@ -1,6 +1,8 @@
 package com.seenhub.backend.domain.music.controller;
 
+import com.seenhub.backend.domain.common.dto.PageResponseDto;
 import com.seenhub.backend.domain.music.dto.MusicCreateRequestDto;
+import com.seenhub.backend.domain.music.dto.MusicListDto;
 import com.seenhub.backend.domain.music.dto.MusicSearchDto;
 import com.seenhub.backend.domain.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,19 @@ public class MusicController {
     public Mono<ResponseEntity<Void>> createMusic(@RequestBody MusicCreateRequestDto dto) {
 
         return musicService.createMusic(dto)
-                .then(Mono.just(ResponseEntity.ok().<Void>build()));
+                .then(Mono.just(ResponseEntity.ok().build()));
+
+    }
+
+    @GetMapping("/all")
+    public Mono<ResponseEntity<PageResponseDto<MusicListDto>>> getMusicList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+
+        return musicService.getMusicList(page, size)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
 
     }
 
