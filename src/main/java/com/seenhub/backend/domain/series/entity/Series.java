@@ -2,14 +2,15 @@ package com.seenhub.backend.domain.series.entity;
 
 import com.seenhub.backend.domain.common.entity.Base;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "series")
 @Getter
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Series extends Base {
 
@@ -21,15 +22,5 @@ public class Series extends Base {
     private String thumbnail;
     private String commentId;
     private boolean isMasterPiece;
-
-    @Builder(toBuilder = true)
-    public Series(String title, String broadcaster, Genre genre, String thumbnail, String commentId ,boolean isMasterPiece) {
-        this.title = title;
-        this.broadcaster = broadcaster;
-        this.genre = genre;
-        this.thumbnail = thumbnail;
-        this.commentId = commentId;
-        this.isMasterPiece = isMasterPiece;
-    }
 
 }
