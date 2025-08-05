@@ -19,14 +19,16 @@ public class Book extends Base {
     private String author;
     private Genre genre;
     private String thumbnail;
+    private String commentId;
     private boolean isMasterPiece;
 
     @Builder(toBuilder = true)
-    public Book(String title, String author, Genre genre, String thumbnail, boolean isMasterPiece) {
+    public Book(String title, String author, Genre genre, String thumbnail, String commentId, boolean isMasterPiece) {
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.thumbnail = thumbnail;
+        this.commentId = commentId;
         this.isMasterPiece = isMasterPiece;
     }
 

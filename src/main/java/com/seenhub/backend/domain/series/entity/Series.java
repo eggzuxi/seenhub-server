@@ -19,14 +19,16 @@ public class Series extends Base {
     private String broadcaster;
     private Genre genre;
     private String thumbnail;
+    private String commentId;
     private boolean isMasterPiece;
 
     @Builder(toBuilder = true)
-    public Series(String title, String broadcaster, Genre genre, String thumbnail, boolean isMasterPiece) {
+    public Series(String title, String broadcaster, Genre genre, String thumbnail, String commentId ,boolean isMasterPiece) {
         this.title = title;
         this.broadcaster = broadcaster;
         this.genre = genre;
         this.thumbnail = thumbnail;
+        this.commentId = commentId;
         this.isMasterPiece = isMasterPiece;
     }
 

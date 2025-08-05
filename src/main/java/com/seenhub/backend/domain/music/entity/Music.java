@@ -19,14 +19,16 @@ public class Music extends Base {
     private String artist;
     private Genre genre;
     private String thumbnail;
+    private String commentId;
     private boolean isMasterPiece;
 
     @Builder(toBuilder = true)
-    public Music(String title, String artist, Genre genre, String thumbnail, boolean isMasterPiece) {
+    public Music(String title, String artist, Genre genre, String thumbnail, String commentId ,boolean isMasterPiece) {
         this.title = title;
         this.artist = artist;
         this.genre = genre;
         this.thumbnail = thumbnail;
+        this.commentId = commentId;
         this.isMasterPiece = isMasterPiece;
     }
 
