@@ -14,6 +14,9 @@ public class WebClientConfig {
     @Value("${webclient.thumbnail}")
     private String thumbnailBaseUrl;
 
+    @Value("${webclient.movie}")
+    private String movieBaseUrl;
+
     @Bean
     public WebClient musicWebClient() {
         return WebClient.builder().baseUrl(musicBaseUrl).build();
@@ -22,6 +25,11 @@ public class WebClientConfig {
     @Bean
     public WebClient thumbnailWebClient() {
         return WebClient.builder().baseUrl(thumbnailBaseUrl).build();
+    }
+
+    @Bean
+    public WebClient movieWebClient() {
+        return WebClient.builder().baseUrl(movieBaseUrl).build();
     }
 
 }

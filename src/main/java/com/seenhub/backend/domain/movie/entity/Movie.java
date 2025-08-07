@@ -8,6 +8,8 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "movies")
 @Getter
 @SuperBuilder(toBuilder = true)
@@ -17,8 +19,8 @@ public class Movie extends Base {
     @Id
     private String id;
     private String title;
-    private String director;
-    private Genre genre;
+    private List<Genre> genres;
+    private double rating;
     private String thumbnail;
     private String commentId;
     private boolean isMasterPiece;

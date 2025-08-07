@@ -16,7 +16,6 @@ public class MusicResponseDto {
     @NoArgsConstructor
     public static class RecordingDto {
 
-        @JsonProperty("title")
         private String title; // 곡 제목
 
         @JsonProperty("artist-credit")

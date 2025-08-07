@@ -2,13 +2,13 @@ package com.seenhub.backend.domain.music.service.impl;
 
 import com.seenhub.backend.domain.music.dto.MusicResponseDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-@Slf4j
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class MusicApiServiceImpl {
