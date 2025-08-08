@@ -113,7 +113,7 @@ public class MusicServiceImpl implements MusicService {
         return musicRepository.findById(id)
                 .flatMap(oldMusic -> {
 
-                    Music.MusicBuilder builder = oldMusic.toBuilder();
+                    Music.MusicBuilder<?, ?> builder = oldMusic.toBuilder();
 
                     if (dto.getTitle() != null) {
                         builder.title(dto.getTitle());
