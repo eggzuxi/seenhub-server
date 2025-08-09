@@ -7,7 +7,6 @@ import com.seenhub.backend.domain.movie.dto.MovieSearchDto;
 import com.seenhub.backend.domain.movie.dto.MovieUpdateRequestDto;
 import com.seenhub.backend.domain.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

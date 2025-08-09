@@ -43,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
                     double rating = results.getVoteAverage();
                     List<Genre> genres = results.getGenreIds().stream()
                             .map(Genre::fromId)
-                            .filter(genre -> genre!= null)
+                            .filter(genre -> genre != null)
                             .collect(Collectors.toList());
                     String thumbnail = results.getPosterPath() != null
                             ? posterUrl + results.getPosterPath()

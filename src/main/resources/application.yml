@@ -10,5 +10,6 @@ webclient:
   music: ${MUSICBRAINZ_API_URL}
   thumbnail: ${COVER_ART_ARCHIVE_API_URL}
   movie: ${TMDB_API_URL}
+  series: ${TMDB_API_URL}
   tmdb-token: ${TMDB_ACCESS_TOKEN}
   tmdb-poster-url: ${TMDB_POSTER_URL}
