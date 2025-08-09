@@ -21,7 +21,7 @@ public class SeriesController {
     private final SeriesService seriesService;
 
     @GetMapping("/search")
-    Mono<ResponseEntity<List<SeriesSearchDto>>> searchSeries(@RequestParam String title) {
+    public Mono<ResponseEntity<List<SeriesSearchDto>>> searchSeries(@RequestParam String title) {
 
         return seriesService.searchSeries(title)
                 .map(ResponseEntity::ok)

@@ -20,6 +20,9 @@ public class WebClientConfig {
     @Value("${webclient.series}")
     private String seriesBaseUrl;
 
+    @Value("${webclient.book}")
+    private String bookBaseUrl;
+
     @Bean
     public WebClient musicWebClient() {
         return WebClient.builder().baseUrl(musicBaseUrl).build();
@@ -38,6 +41,11 @@ public class WebClientConfig {
     @Bean
     public WebClient seriesWebClient() {
         return WebClient.builder().baseUrl(seriesBaseUrl).build();
+    }
+
+    @Bean
+    public WebClient bookWebClient() {
+        return WebClient.builder().baseUrl(bookBaseUrl).build();
     }
 
 }

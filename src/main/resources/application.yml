@@ -13,3 +13,5 @@ webclient:
   series: ${TMDB_API_URL}
   tmdb-token: ${TMDB_ACCESS_TOKEN}
   tmdb-poster-url: ${TMDB_POSTER_URL}
+  book: ${KAKAO_API_URL}
+  kakao-api-key: ${KAKAO_API_KEY}
