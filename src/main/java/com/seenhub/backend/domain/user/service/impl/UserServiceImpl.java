@@ -1,6 +1,7 @@
 package com.seenhub.backend.domain.user.service.impl;
 
 import com.seenhub.backend.domain.common.dto.PageResponseDto;
+import com.seenhub.backend.domain.user.dto.UserLoginDto;
 import com.seenhub.backend.domain.user.dto.UserRequestDto;
 import com.seenhub.backend.domain.user.dto.UserListDto;
 import com.seenhub.backend.domain.user.entity.User;
@@ -25,6 +26,24 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ReactiveMongoTemplate mongoTemplate;
+
+    @Override
+    public Mono<Void> login(UserLoginDto dto) {
+
+        return userRepository.findByUserId(dto.getUserId())
+                .flatMap(user -> {
+                    boolean isMatch = passwordEncoder.matches(dto.getPassword(), user.getPassword());
+                    if (isMatch) {
+                        return Mono.empty();
+                    } else {
+//                        TODO: Add exception handler
+                        return Mono.error(new RuntimeException("Wrong password"));
+                    }
+                })
+//                TODO: Add exception handler
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("User not found"))).then();
+
+    }
 
     @Override
     public Mono<Void> createUser(UserRequestDto dto) {

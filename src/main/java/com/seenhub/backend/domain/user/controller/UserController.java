@@ -2,6 +2,7 @@ package com.seenhub.backend.domain.user.controller;
 
 import com.seenhub.backend.domain.common.dto.PageResponseDto;
 import com.seenhub.backend.domain.user.dto.UserListDto;
+import com.seenhub.backend.domain.user.dto.UserLoginDto;
 import com.seenhub.backend.domain.user.dto.UserRequestDto;
 import com.seenhub.backend.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,14 @@ import reactor.core.publisher.Mono;
 public class UserController {
 
     private final UserService userService;
+
+    @PostMapping("/login")
+    public Mono<ResponseEntity<Void>> login(@RequestBody UserLoginDto dto) {
+
+        return userService.login(dto)
+                .then(Mono.just(ResponseEntity.ok().build()));
+
+    }
 
     @PostMapping("/add")
     public Mono<ResponseEntity<Void>> createUser(@RequestBody UserRequestDto dto) {
