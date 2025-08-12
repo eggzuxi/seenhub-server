@@ -29,20 +29,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<Void> login(UserLoginDto dto) {
-
         return userRepository.findByUserId(dto.getUserId())
+                .switchIfEmpty(Mono.error(new RuntimeException("User not found")))
                 .flatMap(user -> {
                     boolean isMatch = passwordEncoder.matches(dto.getPassword(), user.getPassword());
-                    if (isMatch) {
-                        return Mono.empty();
-                    } else {
-//                        TODO: Add exception handler
+                    if (!isMatch) {
                         return Mono.error(new RuntimeException("Wrong password"));
                     }
+                    return Mono.just(user);
                 })
-//                TODO: Add exception handler
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("User not found"))).then();
-
+                .then();
     }
 
     @Override
