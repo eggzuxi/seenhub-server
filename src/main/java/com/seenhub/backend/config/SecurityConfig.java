@@ -26,10 +26,15 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable())
                 .authorizeExchange(exchanges -> exchanges
+//                        .pathMatchers(USER_BASE_URL + "/**").permitAll()
                         .pathMatchers(MUSIC_LIST_URL + "/**").permitAll()
+//                        .pathMatchers(MUSIC_BASE_URL + "/**").permitAll()
                         .pathMatchers(MOVIE_LIST_URL + "/**").permitAll()
+//                        .pathMatchers(MOVIE_BASE_URL + "/**").permitAll()
                         .pathMatchers(SERIES_LIST_URL + "/**").permitAll()
+//                        .pathMatchers(SERIES_BASE_URL + "/**").permitAll()
                         .pathMatchers(BOOK_LIST_URL + "/**").permitAll()
+//                        .pathMatchers(BOOK_BASE_URL + "/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .build();
