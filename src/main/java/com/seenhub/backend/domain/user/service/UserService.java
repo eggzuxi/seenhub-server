@@ -4,11 +4,12 @@ import com.seenhub.backend.domain.common.dto.PageResponseDto;
 import com.seenhub.backend.domain.user.dto.UserLoginDto;
 import com.seenhub.backend.domain.user.dto.UserRequestDto;
 import com.seenhub.backend.domain.user.dto.UserListDto;
+import com.seenhub.backend.domain.user.dto.UserResponseDto;
 import reactor.core.publisher.Mono;
 
 public interface UserService {
 
-    Mono<Void> login(UserLoginDto dto);
+    Mono<UserResponseDto> login(UserLoginDto dto);
     Mono<Void> createUser(UserRequestDto dto);
     Mono<PageResponseDto<UserListDto>> findUserList(int page, int size);
     Mono<Void> updateUser(String id, UserRequestDto dto);

@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable())
                 .authorizeExchange(exchanges -> exchanges
+                        .pathMatchers(USER_LOGIN_URL + "/**").permitAll()
 //                        .pathMatchers(USER_BASE_URL + "/**").permitAll()
                         .pathMatchers(MUSIC_LIST_URL + "/**").permitAll()
 //                        .pathMatchers(MUSIC_BASE_URL + "/**").permitAll()

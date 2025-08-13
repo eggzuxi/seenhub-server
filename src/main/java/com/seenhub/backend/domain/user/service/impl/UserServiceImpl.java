@@ -4,6 +4,7 @@ import com.seenhub.backend.domain.common.dto.PageResponseDto;
 import com.seenhub.backend.domain.user.dto.UserLoginDto;
 import com.seenhub.backend.domain.user.dto.UserRequestDto;
 import com.seenhub.backend.domain.user.dto.UserListDto;
+import com.seenhub.backend.domain.user.dto.UserResponseDto;
 import com.seenhub.backend.domain.user.entity.User;
 import com.seenhub.backend.domain.user.repository.UserRepository;
 import com.seenhub.backend.domain.user.service.UserService;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private final ReactiveMongoTemplate mongoTemplate;
 
     @Override
-    public Mono<Void> login(UserLoginDto dto) {
+    public Mono<UserResponseDto> login(UserLoginDto dto) {
         return userRepository.findByUserId(dto.getUserId())
                 .switchIfEmpty(Mono.error(new RuntimeException("User not found")))
                 .flatMap(user -> {
@@ -36,9 +37,11 @@ public class UserServiceImpl implements UserService {
                     if (!isMatch) {
                         return Mono.error(new RuntimeException("Wrong password"));
                     }
-                    return Mono.just(user);
-                })
-                .then();
+                    return Mono.just(UserResponseDto.builder()
+                            .userId(user.getUserId())
+                            .name(user.getName())
+                            .build());
+                });
     }
 
     @Override

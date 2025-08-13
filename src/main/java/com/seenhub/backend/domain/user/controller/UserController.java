@@ -4,6 +4,7 @@ import com.seenhub.backend.domain.common.dto.PageResponseDto;
 import com.seenhub.backend.domain.user.dto.UserListDto;
 import com.seenhub.backend.domain.user.dto.UserLoginDto;
 import com.seenhub.backend.domain.user.dto.UserRequestDto;
+import com.seenhub.backend.domain.user.dto.UserResponseDto;
 import com.seenhub.backend.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public Mono<ResponseEntity<Void>> login(@RequestBody UserLoginDto dto) {
+    public Mono<ResponseEntity<UserResponseDto>> login(@RequestBody UserLoginDto dto) {
 
         return userService.login(dto)
-                .then(Mono.just(ResponseEntity.ok().build()));
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
 
     }
 
