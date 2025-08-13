@@ -3,6 +3,7 @@ package com.seenhub.backend.constants;
 public class ApiConstants {
 
     public static final String USER_BASE_URL = "/api/user";
+    public static final String USER_LOGIN_URL = USER_BASE_URL + "/login";
     public static final String MUSIC_BASE_URL = "/api/music";
     public static final String MUSIC_LIST_URL = "/api/music/all";
     public static final String MOVIE_BASE_URL = "/api/movie";
