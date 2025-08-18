@@ -10,6 +10,7 @@ import com.seenhub.backend.domain.book.service.BookService;
 import com.seenhub.backend.domain.common.dto.PageResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -71,7 +72,8 @@ public class BookServiceImpl implements BookService {
                 Criteria.where("isDeleted").is(false)
         )
                 .skip((page - 1) * size)
-                .limit(size);
+                .limit(size)
+                .with(Sort.by(Sort.Direction.DESC, "createdAt"));
 
         Mono<List<BookListDto>> bookList = mongoTemplate.find(query, Book.class)
                 .map(book -> BookListDto.builder()

@@ -12,6 +12,7 @@ import com.seenhub.backend.domain.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -85,7 +86,8 @@ public class MovieServiceImpl implements MovieService {
                 Criteria.where("isDeleted").is(false)
         )
                 .skip((long)(page - 1) * size)
-                .limit(size);
+                .limit(size)
+                .with(Sort.by(Sort.Direction.DESC, "createdAt"));
 
         Mono<List<MovieListDto>> movieList = mongoTemplate.find(query, Movie.class)
                 .map(movie -> MovieListDto.builder()
