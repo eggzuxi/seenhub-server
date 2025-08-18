@@ -127,6 +127,10 @@ public class MusicServiceImpl implements MusicService {
                         builder.genres(dto.getGenres());
                     }
 
+                    if (dto.getThumbnail() != null) {
+                        builder.thumbnail(dto.getThumbnail());
+                    }
+
                     if (dto.getIsMasterPiece() != null) {
                         builder.isMasterPiece(dto.getIsMasterPiece());
                     }

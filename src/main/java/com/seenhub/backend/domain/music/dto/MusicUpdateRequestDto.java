@@ -13,6 +13,7 @@ public class MusicUpdateRequestDto {
     private String title;
     private String artist;
     private List<Genre> genres;
+    private String thumbnail;
     private Boolean isMasterPiece;
 
 }
