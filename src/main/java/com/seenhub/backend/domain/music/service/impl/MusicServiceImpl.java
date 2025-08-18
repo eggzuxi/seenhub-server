@@ -10,6 +10,7 @@ import com.seenhub.backend.domain.music.repository.MusicRepository;
 import com.seenhub.backend.domain.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -76,7 +77,8 @@ public class MusicServiceImpl implements MusicService {
                 Criteria.where("isDeleted").is(false)
         )
                 .skip((long)(page - 1) * size)
-                .limit(size);
+                .limit(size)
+                .with(Sort.by(Sort.Direction.DESC, "createdAt"));
 
         Mono<List<MusicListDto>> musicList = mongoTemplate.find(query, Music.class)
                 .map(music -> MusicListDto.builder()
