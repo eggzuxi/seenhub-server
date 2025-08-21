@@ -48,3 +48,15 @@ jobs:
       - name: Print Docker image name
         run: |
           echo "Docker image pushed: ${{ secrets.DOCKER_USERNAME }}/seenhub-backend"
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: seenhub-backend
+          image: docker.io/${{ secrets.DOCKER_USERNAME }}/seenhub-backend:latest
+          region: asia-northeast3
