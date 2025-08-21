@@ -78,7 +78,7 @@ public class MusicServiceImpl implements MusicService {
         )
                 .skip((long)(page - 1) * size)
                 .limit(size)
-                .with(Sort.by(Sort.Direction.DESC, "createdAt"));
+                .with(Sort.by(Sort.Direction.DESC, "_id"));
 
         Mono<List<MusicListDto>> musicList = mongoTemplate.find(query, Music.class)
                 .map(music -> MusicListDto.builder()

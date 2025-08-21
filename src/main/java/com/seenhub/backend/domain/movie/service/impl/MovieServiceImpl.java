@@ -87,7 +87,7 @@ public class MovieServiceImpl implements MovieService {
         )
                 .skip((long)(page - 1) * size)
                 .limit(size)
-                .with(Sort.by(Sort.Direction.DESC, "createdAt"));
+                .with(Sort.by(Sort.Direction.DESC, "_id"));
 
         Mono<List<MovieListDto>> movieList = mongoTemplate.find(query, Movie.class)
                 .map(movie -> MovieListDto.builder()

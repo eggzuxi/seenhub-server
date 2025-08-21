@@ -71,9 +71,9 @@ public class BookServiceImpl implements BookService {
         Query query = new Query(
                 Criteria.where("isDeleted").is(false)
         )
-                .skip((page - 1) * size)
+                .skip((long)(page - 1) * size)
                 .limit(size)
-                .with(Sort.by(Sort.Direction.DESC, "createdAt"));
+                .with(Sort.by(Sort.Direction.DESC, "_id"));
 
         Mono<List<BookListDto>> bookList = mongoTemplate.find(query, Book.class)
                 .map(book -> BookListDto.builder()

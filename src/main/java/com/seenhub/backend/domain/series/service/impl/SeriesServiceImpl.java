@@ -85,9 +85,9 @@ public class SeriesServiceImpl implements SeriesService {
         Query query = new Query(
                 Criteria.where("isDeleted").is(false)
         )
-                .skip((page - 1) * size)
+                .skip((long)(page - 1) * size)
                 .limit(size)
-                .with(Sort.by(Sort.Direction.DESC, "createdAt"));
+                .with(Sort.by(Sort.Direction.DESC, "_id"));
 
         Mono<List<SeriesListDto>> seriesList = mongoTemplate.find(query, Series.class)
                 .map(series -> SeriesListDto.builder()
