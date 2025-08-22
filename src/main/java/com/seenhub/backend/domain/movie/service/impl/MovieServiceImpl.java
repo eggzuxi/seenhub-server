@@ -41,7 +41,7 @@ public class MovieServiceImpl implements MovieService {
         return movieApiService.findMovieByTitle(title)
                 .flatMapMany(movieResponseDto -> Flux.fromIterable(movieResponseDto.getResults()))
                 .map(results -> {
-                    double rating = results.getVoteAverage();
+                    double rating = Math.round(results.getVoteAverage() * 100.0) / 100.0;
                     List<Genre> genres = results.getGenreIds().stream()
                             .map(Genre::fromId)
                             .filter(genre -> genre != null)

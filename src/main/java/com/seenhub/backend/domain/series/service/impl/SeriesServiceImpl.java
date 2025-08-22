@@ -41,7 +41,7 @@ public class SeriesServiceImpl implements SeriesService {
         return seriesApiService.findSeriesByTitle(title)
                 .flatMapMany(seriesResponseDto -> Flux.fromIterable(seriesResponseDto.getResults()))
                 .map(results -> {
-                    double rating = results.getVoteAverage();
+                    double rating = Math.round(results.getVoteAverage() * 100.0) / 100.0;
                     List<Genre> genres = results.getGenreIds().stream()
                             .map(Genre::fromId)
                             .filter(genre -> genre != null)
